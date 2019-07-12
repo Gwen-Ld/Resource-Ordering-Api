@@ -27,11 +27,7 @@ router.get('/', (req, res, next)=> {
 });
 
 router.post('/', (req, res, next)=> {
-    const product = {
-        name : req.body.name,
-        price: req.body.price
-    };
-
+    
     // Instantiate a product in Product model
     const product = new Product({
         _id: new mongoose.Types.ObjectId(), 
