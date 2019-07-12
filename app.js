@@ -12,6 +12,26 @@ app.use(bodyParser.urlencoded({extended: false}));
 // Extract json data and make it readable
 app.use(bodyParser.json());
 
+
+// Preventing Cors errors - ensuring we send the right headers
+app.use((req, res, next)=>{
+    // which origin (client) is allowed
+    res.header("Access-Contro-Allow-Origin", "*"),
+    // Which type of headers is allowed
+    res.header(
+        "Access-Control-Allow-Headers", 
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    // Check if incomming request method is equal to options
+    if (req.method === 'OPTIONS'){
+        // Tells the browser what he may send
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
+    next();
+});
+
+
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
 
