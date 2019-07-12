@@ -2,9 +2,21 @@ const express = require('express');
 const app = express();
 const morgan = require ('morgan');
 const bodyParser = require ('body-parser');
+const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+
+// Connecting Mongo database with mongoose
+mongoose.connect(
+    "mongodb+srv://resource-ordering-api:"
+        + process.env.MONGO_ATLAS_PWD + 
+        "@resource-ordering-api-v33wq.mongodb.net/test?retryWrites=true&w=majority", 
+    {
+        useMongoClient: true
+    }
+);
+
 
 app.use(morgan('dev'));
 // To parse url encoded bodies - setted to false to only support simple bodies
