@@ -16,7 +16,10 @@ app.use((req, res, next)=>{
     next(error);
 })
 
+
+// Handles all the errors, no matter where they come from
 app.use((error, req, res, next)=>{
+    // Uses the 404 error above or 500 for all other kind of error
     res.status(err.status || 500);
     res.json({
         error:{
